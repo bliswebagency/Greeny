@@ -37,9 +37,9 @@ class Greeny_acc {
 	 */
 	public function set_sections()
 	{
-		$EE =& get_instance();
+		$EE =& get_instance();				
 		
-		
+		//now let's load the view
 		$this->sections['Status'] = $EE->load->view('accessory_status', '', TRUE);
 		
 	}

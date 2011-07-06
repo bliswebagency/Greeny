@@ -1,1 +1,1 @@
-All good here sherif
+This will run an Ajax call to our Update Action and display any results
