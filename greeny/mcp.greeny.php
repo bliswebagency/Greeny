@@ -43,6 +43,8 @@ class Greeny_mcp {
 			'module_home'	=> $this->_base_url,
 			// Add more right nav items here.
 		));
+		
+		
 	}
 	
 	// ----------------------------------------------------------------
@@ -57,9 +59,14 @@ class Greeny_mcp {
 		$this->EE->cp->set_variable('cp_page_title', 
 								lang('greeny_module_name'));
 		
-		/**
-		 * This is the addons home page, add more code here!
-		 */		
+		$results = $this->EE->db->query("SELECT action_id FROM exp_actions WHERE class = 'Greeny' AND method = 'update' ORDER BY action_id DESC LIMIT 0,1");
+
+		$act_id = $results->row('action_id');
+		
+		$vars['actid'] = $act_id;
+
+		return $this->EE->load->view('index', $vars, TRUE);		
+		 
 	}
 
 	/**

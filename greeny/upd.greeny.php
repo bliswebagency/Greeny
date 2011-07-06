@@ -55,6 +55,13 @@ class Greeny_upd {
 		);
 		
 		$this->EE->db->insert('modules', $mod_data);
+				
+		$data = array(
+			'class' 	=> 'Greeny',
+			'method' 	=> 'update'
+		);
+		
+		$this->EE->db->insert('actions', $data);
 		
 		// $this->EE->load->dbforge();
 		/**

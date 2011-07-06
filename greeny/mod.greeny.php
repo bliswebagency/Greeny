@@ -39,7 +39,7 @@ class Greeny {
 	public function update(){
 		
 		$newrecord = false;
-		
+		$out = "";
 		//temp array... this will be replace by an array populated by the db
 		$roots = array("/var/www/vhosts/mysite.net/subdomains/stage/httpdocs/","/var/www/vhosts/mysite.net/httpdocs/","/var/www/vhosts/mysite.net/subdomains/dev/httpdocs/","/Users/admin/Sites/ee2/");
 		
@@ -57,7 +57,7 @@ class Greeny {
 		    //whoa, hold your horses! what's this? a new environment? let's make a record of it.
 			
 			//display "new environment recorded"
-			echo "New Environment Recorded...";
+			$out .= "New Environment Recorded...";
 			
 			$newrecord = true;
 		}
@@ -66,6 +66,11 @@ class Greeny {
 		$results = $this->EE->db->query("SELECT server_path FROM exp_upload_prefs LIMIT 0,1");
 
 		$test_path = $results->row('server_path');
+		
+		if ($results->num_rows() == 0){
+			$out .= "No upload locations defined";
+			exit($out);
+		}
 		
 		if ($test_path !== NULL){
 
@@ -94,7 +99,7 @@ class Greeny {
 						//set new value
 						$new_val = str_replace($old_path,$current_root,$current_val);
 						
-						echo "new record [$new_val]...\r\n";
+						$out .= "new record [$new_val]...\r\n";
 						//update this record with new value
 						# WRITE TO DB
 					}
@@ -103,15 +108,17 @@ class Greeny {
 				
 					//display "environment paths not correct - no previous match found"
 					# OUTPUT MESSAGE
-					echo "No previous environments matched - so nothing was changed. Maybe try relative paths or Deploy Helper..!";					
+					$out .= "No previous environments matched - so nothing was changed. Maybe try relative paths or Deploy Helper..!";					
 				
 				}						
 			
 			} else {
-				if ($newrecord == true) echo "All your paths checked out - you must have done it manually";
-				else echo "Paths are all good sherif.";
+				if ($newrecord == true) $out .= "All your paths checked out - you must have done it manually";
+				else $out .= "Paths are all good sherif.";
 			}
 		}
+		
+		exit($out);
 		 
 	}
 	
