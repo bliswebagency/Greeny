@@ -103,13 +103,17 @@ class Greeny {
 					
 						//get current value
 						$current_val = $row['server_path'];
+						$current_id = $row['id'];
 
 						//set new value
 						$new_val = str_replace($old_path,$current_root,$current_val);
 						
-						$out .= "new record [$new_val]...\r\n";
+						$out .= "new record [$new_val]...<br />\r\n";
+						
 						//update this record with new value
-						# WRITE TO DB
+						$data = array('server_path' => $new_val);
+						$sql = $this->EE->db->update_string('exp_upload_prefs', $data, "id = '$current_id'");
+						$this->EE->db->query($sql);
 					}
 					
 				} else {
