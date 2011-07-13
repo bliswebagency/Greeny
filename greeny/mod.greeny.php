@@ -41,8 +41,13 @@ class Greeny {
 		$newrecord = false;
 		$out = "";
 		//temp array... this will be replace by an array populated by the db
-		$roots = array("/var/www/vhosts/mysite.net/subdomains/stage/httpdocs/","/var/www/vhosts/mysite.net/httpdocs/","/var/www/vhosts/mysite.net/subdomains/dev/httpdocs/","/Users/admin/Sites/ee2/");
+		$results = $this->EE->db->query("SELECT dir_path FROM exp_greeny");
+		$roots = array();
 		
+		foreach ($results->result_array() as $row){
+			array_push($roots, $row['dir_path']);
+		}
+				
 		//grab this site's root
 		$current_root = $_SERVER['DOCUMENT_ROOT'];
 		
@@ -55,9 +60,12 @@ class Greeny {
 		if (!in_array($current_root,$roots))
 		{
 		    //whoa, hold your horses! what's this? a new environment? let's make a record of it.
+		    $data = array('dir_path' => $current_root);
+			$sql = $this->EE->db->insert_string('exp_greeny', $data);
+			$this->EE->db->query($sql);
 			
 			//display "new environment recorded"
-			$out .= "New Environment Recorded...";
+			$out .= "New Environment Recorded...<br />";
 			
 			$newrecord = true;
 		}
