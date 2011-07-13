@@ -27,11 +27,12 @@ USER GUIDE
 --------------------------
 1. Download
 2. Unzip
-3. Upload the "greeny" folder to /system/expressionengine/third_party/
-4. Log in to your CP
-5. Make sure you're using absolute upload paths
-6. Go to Addons > Modules > Greeny and click Install
-7. Make a cup of tea and enjoy
+3. Backup your site
+4. Upload the "greeny" folder to /system/expressionengine/third_party/
+5. Log in to your CP
+6. Make sure you're using absolute upload paths
+7. Go to Addons > Modules > Greeny and click Install
+8. Make a cup of tea and enjoy
 
 
 
