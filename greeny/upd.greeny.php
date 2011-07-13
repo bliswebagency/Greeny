@@ -63,7 +63,19 @@ class Greeny_upd {
 		
 		$this->EE->db->insert('actions', $data);
 		
-		// $this->EE->load->dbforge();
+		$fields = array(
+			'greeny_id'   => array('type' => 'int', 'constraint' => 10, 'unsigned' => TRUE, 'auto_increment' => TRUE),
+			'dir_path'  => array('type' => 'varchar', 'constraint' => 1024)
+		);
+		
+		$this->EE->load->dbforge();
+		
+		$this->EE->dbforge->add_field($fields);
+		$this->EE->dbforge->add_key('greeny_id', TRUE);
+		$this->EE->dbforge->add_key('dir_path');
+		$this->EE->dbforge->create_table('greeny');
+		
+		// 
 		/**
 		 * In order to setup your custom tables, uncomment the line above, and 
 		 * start adding them below!
@@ -90,7 +102,12 @@ class Greeny_upd {
 					 ->delete('module_member_groups');
 		
 		$this->EE->db->where('module_name', 'Greeny')
-					 ->delete('modules');
+					 ->delete('modules');					 
+		
+		$this->EE->db->where('class', 'Greeny')
+					 ->delete('actions');
+		
+		$this->EE->dbforge->drop_table('greeny');			 
 		
 		// $this->EE->load->dbforge();
 		// Delete your custom tables & any ACT rows 

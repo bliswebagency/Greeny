@@ -35,12 +35,23 @@ class Greeny_acc {
 	/**
 	 * Set Sections
 	 */
-	public function set_sections()
+	function Greeny_acc()
 	{
-		$EE =& get_instance();				
+		$this->EE =& get_instance();
+		$this->CI =& get_instance(); // since we need to load CI libraries
+	} 
+	 
+	function set_sections()
+	{
+		
+		$results = $this->EE->db->query("SELECT action_id FROM exp_actions WHERE class = 'Greeny' AND method = 'update' ORDER BY action_id DESC LIMIT 0,1");
+
+		$act_id = $results->row('action_id');
+		
+		$vars['actid'] = $act_id;				
 		
 		//now let's load the view
-		$this->sections['Status'] = $EE->load->view('accessory_status', '', TRUE);
+		$this->sections['Status'] = $this->EE->load->view('accessory_status', $vars, TRUE);
 		
 	}
 	
