@@ -37,6 +37,10 @@ class Greeny {
 	}
 	
 	public function update(){
+	
+		if ($this->EE->config->item('greeny_enabled')=="false"||$this->EE->config->item('greeny_enabled')=="False"||$this->EE->config->item('greeny_enabled')=="FALSE"){
+			die("Greeny has been disabled in the config settings.");
+		}
 		
 		$newrecord = false;
 		$out = "";

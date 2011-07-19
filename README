@@ -1,5 +1,5 @@
 --------------------------
-MEET GREENY (beta)
+MEET GREENY
 --------------------------
 
 Greeny was written to solve a pretty simple problem that occurs when you move an EE2 database from one server environment to another. The problem being the "absolute" upload paths are wrong and you need to manually change them. In that past people tried to get around this using relative paths... but that method really sucked as many addons didn't work well using relative paths.
@@ -35,12 +35,32 @@ USER GUIDE
 8. Make a cup of tea and enjoy
 
 
+--------------------------
+HOW TO DISABLE GREENY
+--------------------------
+You may have some environments where you don't want Greeny to do his thing. We've added a global variable to get around this issue. To disable Greeny, just set:
+
+$config['greeny_enabled'] = false;
+
+To do this with NSM Config Bootstrap, you'll want to include something like this:
+
+    if (NSM_ENV == 'local') $default_config['greeny_enabled'] = "false";
+
+Above this line:
+
+    $config = array_merge($config, $default_config, $env_config);
+    
+You'll be able to see if this has worked by checking the Greeny Accessory status. You should see this message:
+
+"Greeny has been disabled in the config settings."
+
+
 
 --------------------------
-MASSIVE DISCLAIMER
+DISCLAIMER
 --------------------------
 
-Greeny is a rogue ranger and abides by no mans law. Given this, you should only install this addon with the expectation that your whole site could come crashing down. Now you're shaking in your boots, download a copy and tell me about all the bugs so that we can get Greeny out there all guns blazing.
+BACKUP YOUR WEBSITE before installation as there is no warranty.
 
 
 
@@ -55,14 +75,10 @@ Q. What versions of EE2 does Greeny roll with?
 A. Greeny's only been tested with EE 2.1.3 to date. We'll post a version update to confirm it also works with 2.2.1. once we've confirmed that's also working.
 
 Q. I have a very important website which needs to stay online or the Queen of England will die. Should I install Greeny?
-A. That depends... do you like the Queen? Probably best you leave this one alone for the time being.
-
-Q. I have a small dev site that I use to play around with experimental EE2 addons. Should I install Greeny.
-A. Yes. Do it now.
+A. That depends... do you like the Queen? We've been working on making Greeny as stable as possible and to date, it's been just that. However, we always advise you backup and show caution before installing any addon.
 
 Q. I've found a bunch of bugs? Should I tell my mother?
 A. No, tell me. Here: https://github.com/bliswebagency/Greeny/issues
-
 
 Q. I'm not using the "exp_" naming convention for my DB tables - should I install Greeny?
 A. No, not yet. Wait long by the river and a new version will float by that you can use.

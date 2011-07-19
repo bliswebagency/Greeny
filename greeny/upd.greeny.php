@@ -26,7 +26,7 @@
 
 class Greeny_upd {
 	
-	public $version = '1.0.1 beta';
+	public $version = '1.0.2';
 	
 	private $EE;
 	
