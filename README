@@ -58,7 +58,9 @@ You'll be able to see if this has worked by checking the Greeny Accessory status
 --------------------------
 SHARING A REMOTE DB
 --------------------------
-If you are working on a team with multiple developers accessing the same remote database you can optionally specify a unique config variable per developer.
+If any of your environments access the same database and have different filesystems you need to add one step for Greeny to work properly.
+
+The 'greeny_env' config setting should be set in each environment that accesses a remote database. The value should be unique for each environment. A common example of this is having a team of developers working with local files but using a remote database to stay in sync with data. In this scenario each developer would need to use the config setting in their environment.
 
 $config['greeny_env'] = 'unique-key-per-person';
 
