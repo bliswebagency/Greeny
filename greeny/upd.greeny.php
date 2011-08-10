@@ -26,7 +26,7 @@
 
 class Greeny_upd {
 	
-	public $version = '1.0.2';
+	public $version = '1.0.3';
 	
 	private $EE;
 	
@@ -65,7 +65,8 @@ class Greeny_upd {
 		
 		$fields = array(
 			'greeny_id'   => array('type' => 'int', 'constraint' => 10, 'unsigned' => TRUE, 'auto_increment' => TRUE),
-			'dir_path'  => array('type' => 'varchar', 'constraint' => 1024)
+			'dir_path'  => array('type' => 'varchar', 'constraint' => 1024),
+			'env_key'  => array('type' => 'varchar', 'constraint' => 15)
 		);
 		
 		$this->EE->load->dbforge();
@@ -126,6 +127,21 @@ class Greeny_upd {
 	public function update($current = '')
 	{
 		// If you have updates, drop 'em in here.
+		if ($current == $this->version)
+		{
+			return TRUE;
+		}
+		
+		$this->EE->load->dbforge();
+		
+		if (version_compare($current, '1.0.3') < 0) 
+		{
+			$fields = array(
+				'env_key'  => array('type' => 'varchar', 'constraint' => 15)
+			);
+			$this->EE->dbforge->add_column('greeny', $fields);
+		} 
+		
 		return TRUE;
 	}
 	

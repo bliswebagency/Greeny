@@ -55,6 +55,21 @@ You'll be able to see if this has worked by checking the Greeny Accessory status
 "Greeny has been disabled in the config settings."
 
 
+--------------------------
+SHARING A REMOTE DB
+--------------------------
+If any of your environments access the same database and have different filesystems you need to add one step for Greeny to work properly.
+
+The 'greeny_env' config setting should be set in each environment that accesses a remote database. The value should be unique for each environment. A common example of this is having a team of developers working with local files but using a remote database to stay in sync with data. In this scenario each developer would need to use the config setting in their environment.
+
+$config['greeny_env'] = 'unique-key-per-person';
+
+This setting will be save to the database and serves as a "key" per developer. This allows for each developer to have their own upload directory base paths.
+
+This will only work if this setting is unique to each developer. We achieve this by ignoring a developer-specific config override file per team member.
+- Erik Reagan (@erikreagan)
+Focus Lab, LLC
+
 
 --------------------------
 DISCLAIMER
