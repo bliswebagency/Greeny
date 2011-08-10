@@ -55,6 +55,19 @@ You'll be able to see if this has worked by checking the Greeny Accessory status
 "Greeny has been disabled in the config settings."
 
 
+--------------------------
+SHARING A REMOTE DB
+--------------------------
+If you are working on a team with multiple developers accessing the same remote database you can optionally specify a unique config variable per developer.
+
+$config['greeny_env'] = 'unique-key-per-person';
+
+This setting will be save to the database and serves as a "key" per developer. This allows for each developer to have their own upload directory base paths.
+
+This will only work if this setting is unique to each developer. We achieve this by ignoring a developer-specific config override file per team member.
+- Erik Reagan (@erikreagan)
+Focus Lab, LLC
+
 
 --------------------------
 DISCLAIMER

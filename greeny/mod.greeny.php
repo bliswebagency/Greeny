@@ -38,33 +38,40 @@ class Greeny {
 	
 	public function update(){
 	
-		if ($this->EE->config->item('greeny_enabled')=="false"||$this->EE->config->item('greeny_enabled')=="False"||$this->EE->config->item('greeny_enabled')=="FALSE"){
+		if (strtolower($this->EE->config->item('greeny_enabled')) == "false"){
 			die("Greeny has been disabled in the config settings.");
 		}
 		
 		$newrecord = false;
 		$out = "";
 		//temp array... this will be replace by an array populated by the db
-		$results = $this->EE->db->query("SELECT dir_path FROM exp_greeny");
+		$results = $this->EE->db->query("SELECT dir_path, env_key FROM exp_greeny");
 		$roots = array();
+		$envs = array();
 		
 		foreach ($results->result_array() as $row){
 			array_push($roots, $row['dir_path']);
+			array_push($envs, $row['env_key']);
 		}
-				
+		
+		
 		//grab this site's root
 		$current_root = $_SERVER['DOCUMENT_ROOT'];
 		
 		//make sure slashes are treated consistently
 		if (substr($current_root, -1) != "/")
 		$current_root = $current_root . "/";
+		$current_env = $this->EE->config->item('greeny_env');
 		
 		//this automatically detects and records new environments... which is a lazy way of 
 		//avoiding a bells and whistles CP screen - it's also better for the user!
-		if (!in_array($current_root,$roots))
+		if (!in_array($current_root,$roots) && !in_array($current_env,$envs))
 		{
-		    //whoa, hold your horses! what's this? a new environment? let's make a record of it.
-		    $data = array('dir_path' => $current_root);
+			//whoa, hold your horses! what's this? a new environment? let's make a record of it.
+			$data = array(
+				'dir_path' => $current_root,
+				'env_key'  => ($current_env) ? $current_env : NULL // insert NULL to the db rather than FALSE (empty string)
+			);
 			$sql = $this->EE->db->insert_string('exp_greeny', $data);
 			$this->EE->db->query($sql);
 			
