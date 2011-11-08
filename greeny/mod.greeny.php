@@ -139,6 +139,7 @@ class Greeny {
 				if ($newrecord == true) $out .= "All your paths checked out - you must have done it manually";
 				else {					
 					$out .= "Paths are all good sherif.";
+					$out .= "Paths are all good sheriff.";
 				}
 			}
 		}
