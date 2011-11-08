@@ -94,6 +94,11 @@ class Greeny_upd {
 	 */	
 	public function uninstall()
 	{
+    $this->EE->load->dbforge();
+    
+		// Delete your custom tables & any ACT rows 
+		// you have in the actions table
+		
 		$mod_id = $this->EE->db->select('module_id')
 								->get_where('modules', array(
 									'module_name'	=> 'Greeny'
@@ -110,9 +115,6 @@ class Greeny_upd {
 		
 		$this->EE->dbforge->drop_table('greeny');			 
 		
-		// $this->EE->load->dbforge();
-		// Delete your custom tables & any ACT rows 
-		// you have in the actions table
 		
 		return TRUE;
 	}
