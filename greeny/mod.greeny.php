@@ -38,7 +38,7 @@ class Greeny {
 	
 	public function update(){
 	
-		if (strtolower($this->EE->config->item('greeny_enabled')) == "false"){
+		if (in_array(strtolower($this->EE->config->item('greeny_enabled')), array('false', 'n', 'no'))){
 			die("Greeny has been disabled in the config settings.");
 		}
 		
@@ -138,7 +138,6 @@ class Greeny {
 			} else {
 				if ($newrecord == true) $out .= "All your paths checked out - you must have done it manually";
 				else {					
-					$out .= "Paths are all good sherif.";
 					$out .= "Paths are all good sheriff.";
 				}
 			}
